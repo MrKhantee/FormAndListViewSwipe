@@ -2,16 +2,15 @@ package nilson.formandlistviewswipe;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> titulo_array = new ArrayList<>();
     ArrayList<String> texto_array = new ArrayList<>();
+    ArrayList<Integer> imagem_array = new ArrayList<>();
     MyAdapter adapter;
 
     final long TEMPO = 500;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         etTexto = (EditText) findViewById(R.id.etTexto);
 
 
-        adapter = new MyAdapter(this, titulo_array,texto_array);
+        adapter = new MyAdapter(this, titulo_array, texto_array, imagem_array);
 
         lista.setAdapter(adapter);
 
@@ -62,15 +62,37 @@ public class MainActivity extends AppCompatActivity {
                 int indexLista = grupo.indexOfChild(lista);
                 int indexForm = grupo.indexOfChild(form);
                 if(indexLista<indexForm){
-                    Log.e("VV","Passando a lista pra frente");
                     exibirLista();
                 }else{
-                    Log.e("VV","Passando o form pra frente");
                     exibirForm();
                 }
 
             }
         });
+
+        SwipeListViewTouchListener touchListener =
+                new SwipeListViewTouchListener(
+                        lista,
+                        new SwipeListViewTouchListener.OnSwipeCallback() {
+
+                            @Override
+                            public void onSwipeLeft(ListView listView, int pos) {
+                                // TODO : YOUR CODE HERE FOR RIGHT ACTION
+                            }
+
+                            @Override
+                            public void onSwipeRight(ListView listView, int pos) {
+                                // TODO : YOUR CODE HERE FOR RIGHT ACTION
+
+                                adapter.remove(pos);
+                            }
+                        },
+                        true, // example : left action = dismiss
+                        false); // example : right action without dismiss animation
+        lista.setOnTouchListener(touchListener);
+        // Setting this scroll listener is required to ensure that during ListView scrolling,
+        // we don't look for swipes.
+        lista.setOnScrollListener(touchListener.makeScrollListener());
 
     }
 
@@ -105,9 +127,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void criar_registro(View v){
-        titulo_array.add(etTitulo.getText().toString());
-        texto_array.add(etTexto.getText().toString());
-        adapter.notifyDataSetChanged();
+        Random r = new Random();
+        int i1 = r.nextInt(22 - 1) + 1;//de 1 a 4
+        int res_id = this.getResources().getIdentifier("p"+i1, "drawable", this.getPackageName());
+
+        adapter.add(etTitulo.getText().toString(),etTexto.getText().toString(),res_id);
+
         etTitulo.setText("");
         etTexto.setText("");
 

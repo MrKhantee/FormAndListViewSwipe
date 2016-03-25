@@ -25,18 +25,36 @@ public class MyAdapter extends BaseAdapter {
     Context context;
     ArrayList<String> titulo_array;
     ArrayList<String> texto_array;
+    ArrayList<Integer> imagem_array;
     private static LayoutInflater inflater = null;
 
     public MyAdapter(Context context,
-                     ArrayList<String> titulo, ArrayList<String> texto) {
+                     ArrayList<String> titulo, ArrayList<String> texto, ArrayList<Integer> imagem) {
         // TODO Auto-generated constructor stub
         this.context = context;
 
         titulo_array =titulo;
         texto_array =texto;
+        imagem_array =imagem;
 
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void add(String titulo, String texto, int imagem){
+        titulo_array.add(titulo);
+        texto_array.add(texto);
+        imagem_array.add(imagem);
+
+        this.notifyDataSetChanged();
+    }
+
+    public void remove(int pos){
+        titulo_array.remove(pos);
+        texto_array.remove(pos);
+        imagem_array.remove(pos);
+
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -75,10 +93,7 @@ public class MyAdapter extends BaseAdapter {
         ImageView ivImagem = (ImageView) vi.findViewById(R.id.ivImagem);
 
 
-        Random r = new Random();
-        int i1 = r.nextInt(22 - 1) + 1;//de 1 a 4
-        int res_id = context.getResources().getIdentifier("p"+i1, "drawable", context.getPackageName());
-        ivImagem.setImageResource(res_id);
+        ivImagem.setImageResource(imagem_array.get(position));
 
 
         return vi;
