@@ -42,15 +42,13 @@ public class MainActivity extends AppCompatActivity {
         etTitulo = (EditText) findViewById(R.id.etTitulo);
         etTexto = (EditText) findViewById(R.id.etTexto);
 
-
-        //adapter = new MyAdapter(this, titulo_array, texto_array, imagem_array);
         adapter = new MyAdapter(this);
-
         lista.setAdapter(adapter);
 
+        //Verifica se o formulario esta em primeiro plano e o coloca caso nao esteja
+        // e tambem deixa o listview invisivel
         int indexLista = grupo.indexOfChild(lista);
         int indexForm = grupo.indexOfChild(form);
-
         lista.setAlpha(0f);
         if(indexLista<indexForm)
             form.bringToFront();
@@ -59,14 +57,7 @@ public class MainActivity extends AppCompatActivity {
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int indexLista = grupo.indexOfChild(lista);
-                int indexForm = grupo.indexOfChild(form);
-                if(indexLista<indexForm){
-                    exibirLista();
-                }else{
-                    exibirForm();
-                }
-
+                alternarViews();
             }
         });
 
@@ -78,12 +69,13 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onSwipeLeft(ListView listView, int pos) {
                                 // TODO : YOUR CODE HERE FOR RIGHT ACTION
+                                //alterei na classe relativa para que esta funcao seja desativada
                             }
 
                             @Override
                             public void onSwipeRight(ListView listView, int pos) {
                                 // TODO : YOUR CODE HERE FOR RIGHT ACTION
-
+                                //remove a view do listview
                                 adapter.remove(pos);
                             }
                         },
@@ -96,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // coloca o lisview em primeiro plano.
+    // Depois cria uma animacao deixando o formulario invisivel e alterando seu eixo Y
+    // Cria uma animacao deixando o listview visível
     private void exibirLista(){
         lista.bringToFront();
         form.animate()
@@ -103,13 +98,16 @@ public class MainActivity extends AppCompatActivity {
                 .alpha(0)
                 .setDuration(TEMPO)
                 .setListener(null).setStartDelay(0);
+
         lista.animate()
                 .translationX(0)
                 .alpha(1)
                 .setDuration(TEMPO)
                 .setListener(null).setStartDelay(TEMPO-TEMPO/3);
     }
-
+    // coloca o formulario em primeiro plano.
+    // Depois cria uma animacao deixando o listview invisivel
+    // Cria uma animacao deixando o formulario visível e alterando seu eixo Y
     private void exibirForm(){
         form.bringToFront();
         lista.animate()
@@ -118,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                 .setDuration(TEMPO)
                 .setListener(null).setStartDelay(0);
 
-
         form.animate()
                 .translationY(0)
                 .alpha(1)
@@ -126,12 +123,29 @@ public class MainActivity extends AppCompatActivity {
                 .setListener(null).setStartDelay(TEMPO-TEMPO/3);
     }
 
+    private void alternarViews(){
+        int indexLista = grupo.indexOfChild(lista);
+        int indexForm = grupo.indexOfChild(form);
+        if(indexLista<indexForm){
+            exibirLista();
+        }else{
+            exibirForm();
+        }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        alternarViews();
+    }
+    
     public void criar_registro(View v){
 
         adapter.add(etTitulo.getText().toString(),etTexto.getText().toString(),circleImage());
 
         etTitulo.setText("");
         etTexto.setText("");
+        etTitulo.requestFocus();
 
         exibirLista();
     }
@@ -150,4 +164,5 @@ public class MainActivity extends AppCompatActivity {
         c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
         return circleBitmap;
     }
+
 }
