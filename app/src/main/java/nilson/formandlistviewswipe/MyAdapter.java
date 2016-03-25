@@ -25,14 +25,23 @@ public class MyAdapter extends BaseAdapter {
     Context context;
     ArrayList<String> titulo_array;
     ArrayList<String> texto_array;
-    ArrayList<Integer> imagem_array;
+    ArrayList<Bitmap> imagem_array;
     private static LayoutInflater inflater = null;
 
+    public MyAdapter(Context context) {
+        this.context = context;
+        titulo_array = new ArrayList<>();
+        texto_array = new ArrayList<>();
+        imagem_array = new ArrayList<>();
+
+        inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
     public MyAdapter(Context context,
-                     ArrayList<String> titulo, ArrayList<String> texto, ArrayList<Integer> imagem) {
+                     ArrayList<String> titulo, ArrayList<String> texto, ArrayList<Bitmap> imagem) {
         // TODO Auto-generated constructor stub
         this.context = context;
-
         titulo_array =titulo;
         texto_array =texto;
         imagem_array =imagem;
@@ -41,7 +50,7 @@ public class MyAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void add(String titulo, String texto, int imagem){
+    public void add(String titulo, String texto, Bitmap imagem){
         titulo_array.add(titulo);
         texto_array.add(texto);
         imagem_array.add(imagem);
@@ -92,8 +101,7 @@ public class MyAdapter extends BaseAdapter {
 
         ImageView ivImagem = (ImageView) vi.findViewById(R.id.ivImagem);
 
-
-        ivImagem.setImageResource(imagem_array.get(position));
+        ivImagem.setImageBitmap(imagem_array.get(position));
 
 
         return vi;

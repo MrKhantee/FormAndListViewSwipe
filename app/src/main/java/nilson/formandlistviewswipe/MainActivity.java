@@ -1,5 +1,11 @@
 package nilson.formandlistviewswipe;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -44,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
         etTexto = (EditText) findViewById(R.id.etTexto);
 
 
-        adapter = new MyAdapter(this, titulo_array, texto_array, imagem_array);
+        //adapter = new MyAdapter(this, titulo_array, texto_array, imagem_array);
+        adapter = new MyAdapter(this);
 
         lista.setAdapter(adapter);
 
@@ -127,15 +134,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void criar_registro(View v){
-        Random r = new Random();
-        int i1 = r.nextInt(22 - 1) + 1;//de 1 a 4
-        int res_id = this.getResources().getIdentifier("p"+i1, "drawable", this.getPackageName());
 
-        adapter.add(etTitulo.getText().toString(),etTexto.getText().toString(),res_id);
+        adapter.add(etTitulo.getText().toString(),etTexto.getText().toString(),circleImage());
 
         etTitulo.setText("");
         etTexto.setText("");
 
         exibirLista();
+    }
+
+    private Bitmap circleImage(){
+        Random r = new Random();
+        int i1 = r.nextInt(25 - 1) + 1;//de 1 a 24
+        int res_id = this.getResources().getIdentifier("p"+i1, "drawable", this.getPackageName());
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), res_id);
+        Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        BitmapShader shader = new BitmapShader (bitmap,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        Paint paint = new Paint();
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        paint.setShader(shader);
+        Canvas c = new Canvas(circleBitmap);
+        c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
+        return circleBitmap;
     }
 }
