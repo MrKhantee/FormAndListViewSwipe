@@ -2,20 +2,14 @@ package nilson.formandlistviewswipe;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Nilson on 16/10/2015.
@@ -33,18 +27,6 @@ public class MyAdapter extends BaseAdapter {
         titulo_array = new ArrayList<>();
         texto_array = new ArrayList<>();
         imagem_array = new ArrayList<>();
-
-        inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
-
-    public MyAdapter(Context context,
-                     ArrayList<String> titulo, ArrayList<String> texto, ArrayList<Bitmap> imagem) {
-        // TODO Auto-generated constructor stub
-        this.context = context;
-        titulo_array =titulo;
-        texto_array =texto;
-        imagem_array =imagem;
 
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

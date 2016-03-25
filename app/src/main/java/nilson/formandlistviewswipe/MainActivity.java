@@ -14,8 +14,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
-
-import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,11 +23,6 @@ public class MainActivity extends AppCompatActivity {
     ListView lista;
     EditText etTitulo, etTexto;
     ScrollView form;
-
-
-    ArrayList<String> titulo_array = new ArrayList<>();
-    ArrayList<String> texto_array = new ArrayList<>();
-    ArrayList<Integer> imagem_array = new ArrayList<>();
     MyAdapter adapter;
 
     final long TEMPO = 500;
