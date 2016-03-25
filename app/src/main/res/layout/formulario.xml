@@ -18,29 +18,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapWords|textPersonName"
-        android:id="@+id/etTitulo" />
+        android:id="@+id/etTitulo"
+        android:nextFocusDown="@+id/tvTexto"/>
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Texto"
         android:id="@+id/tvTexto"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusable="true" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences"
-        android:id="@+id/etTexto" />
+        android:id="@+id/etTexto"
+        android:nextFocusDown="@+id/tvTexto"/>
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Coisa 1"
         android:id="@+id/tvCoisa1"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusable="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -56,8 +56,7 @@
         android:layout_height="wrap_content"
         android:text="Coisa 2"
         android:id="@+id/tvCoisa2"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusable="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -73,8 +72,7 @@
         android:layout_height="wrap_content"
         android:text="Coisa 3"
         android:id="@+id/tvCoisa3"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusable="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -90,8 +88,7 @@
         android:layout_height="wrap_content"
         android:text="Coisa 4"
         android:id="@+id/tvCoisa4"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusable="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -107,8 +104,7 @@
         android:layout_height="wrap_content"
         android:text="Coisa 5"
         android:id="@+id/tvCoisa5"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusable="true" />
 
     <EditText
         android:layout_width="match_parent"
